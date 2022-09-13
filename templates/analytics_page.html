@@ -1,0 +1,153 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+    <meta name="description" content="FillerList's analytics">
+    <meta name="author" content="Chirag">
+    <meta name="keywords" content="Fillers, Filler list, Anime, anime fillers, fillerlist.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&amp;display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+    <link href="{% static 'images/icon.png' %}" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/analytics_page.css' %}">
+
+    <title>Analytics | Fillerlist</title>
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    <section class="body-font">
+        <div class="visit-container">
+            <div class="visit-card red">
+                <p class="visit-frame-title">All time</p>
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    class="visit-card-icon" viewBox="0 0 24 24">
+                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"></path>
+                </svg>
+                <div class="visit-type-container">
+                    <div class="visit-type-card">
+                        <p class="visit-type-title">Total</p>
+                        <h3 class="visit-count">{{all_time}}</h3>
+                    </div>
+                    <div class="visit-type-card">
+                        <p class="visit-type-title">Unique</p>
+                        <h3 class="visit-count">{{all_time_unique}}</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visit-card blue">
+                <p class="visit-frame-title">Year</p>
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    class="visit-card-icon" viewBox="0 0 24 24">
+                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"></path>
+                </svg>
+                <div class="visit-type-container">
+                    <div class="visit-type-card">
+                        <p class="visit-type-title">Total</p>
+                        <h3 class="visit-count">{{year}}</h3>
+                    </div>
+                    <div class="visit-type-card">
+                        <p class="visit-type-title">Unique</p>
+                        <h3 class="visit-count">{{year_unique}}</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visit-card green">
+                <p class="visit-frame-title">Month</p>
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    class="visit-card-icon" viewBox="0 0 24 24">
+                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"></path>
+                </svg>
+                <div class="visit-type-container">
+                    <div class="visit-type-card">
+                        <p class="visit-type-title">Total</p>
+                        <h3 class="visit-count">{{month}}</h3>
+                    </div>
+                    <div class="visit-type-card">
+                        <p class="visit-type-title">Unique</p>
+                        <h3 class="visit-count">{{month_unique_visits}}</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visit-card pink">
+                <p class="visit-frame-title">Day</p>
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    class="visit-card-icon" viewBox="0 0 24 24">
+                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"></path>
+                </svg>
+                <div class="visit-type-container">
+                    <div class="visit-type-card">
+                        <p class="visit-type-title">Total</p>
+                        <h3 class="visit-count">{{day}}</h3>
+                    </div>
+                    <div class="visit-type-card">
+                        <p class="visit-type-title">Unique</p>
+                        <h3 class="visit-count">{{day_unique_visits}}</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visit-card purple">
+                <p class="visit-frame-title">Custom range</p>
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    class="visit-card-icon" viewBox="0 0 24 24">
+                    <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M23 21v-2a4 4 0 00-3-3.87m-4-12a4 4 0 010 7.75"></path>
+                </svg>
+                <div class="visit-type-card" style="border: none; padding: 0;">
+                    <p class="visit-type-title">Total</p>
+                    <h3 id="custom-range-total" class="visit-count">0</h3>
+                </div>
+            </div>
+        </div>
+
+        <section>
+            <div class="chart-container">
+                <canvas id="chart"></canvas>
+
+                <div class="range-container">
+                    <canvas id="chart-thumbnail"></canvas>
+                    <div class="range">
+                        <span class="drag-left"></span>
+                        <div class="selection"></div>
+                        <span class="drag-right"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+
+        <footer>
+            <a href="{% url 'about_page' %}">About</a>
+        </footer>
+</body>
+
+<script type="text/javascript" src="{% static 'js/analytics_page.js' %}"></script>
+
+{% autoescape off %}
+{{graph_script}}
+{% endautoescape %}
+
+
+
+</html>

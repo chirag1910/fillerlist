@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="List of filler episodes of animes.">
+    <meta name="author" content="Chirag">
+    <meta name="keywords" content="Fillers, Filler list, Anime, anime fillers, fillerlist.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&amp;display=swap" rel="stylesheet">
+
+    <link href="{% static 'images/icon.png' %}" rel="shortcut icon" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/error_page.css' %}">
+
+    <title>Page not found | Fillerlist</title>
+</head>
+
+<body>
+    {% include 'navbar.html' %}
+
+    <div class="error-section">
+        <div>
+            <h1>
+                Page Not Found
+            </h1>
+            <p>Redirecting to main page in 3 seconds...</p>
+        </div>
+    </div>
+
+    <footer>
+        <a href="{% url 'about_page' %}">About</a>
+    </footer>
+
+</body>
+<script type="text/javascript" src="{% static 'js/error_page.js' %}"></script>
+
+</html>

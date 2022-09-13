@@ -1,0 +1,212 @@
+.visit-container {
+    width: 95%;
+    margin: 70px auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+}
+
+.visit-card {
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+}
+.visit-card:last-child {
+    grid-column: 1 / span 4;
+}
+.visit-frame-title {
+    font-size: large;
+}
+.visit-card-icon {
+    max-width: 50px;
+    margin: 20px auto;
+}
+
+.visit-type-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+.visit-type-card {
+    padding: 0 10px;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+}
+.visit-type-card:first-child {
+    padding-left: 0;
+    border-left: none;
+}
+.visit-type-card:last-child {
+    padding-right: 0;
+    border-right: none;
+}
+
+.visit-type-title {
+    font-size: medium;
+    margin-bottom: 10px;
+}
+.visit-count {
+    font-size: xx-large;
+}
+
+.red {
+    background-color: rgba(200, 0, 41, 0.13);
+    color: #ff1e4d;
+}
+.red .visit-type-card {
+    border-color: #ff1e4d !important;
+}
+.blue {
+    background-color: rgba(0, 98, 204, 0.13);
+    color: #33a2ff;
+}
+.blue .visit-type-card {
+    border-color: #33a2ff !important;
+}
+.green {
+    background-color: rgba(32, 134, 55, 0.13);
+    color: #61d97c;
+}
+.green .visit-type-card {
+    border-color: #61d97c !important;
+}
+.pink {
+    background-color: rgba(144, 31, 68, 0.13);
+    color: #e95a86;
+}
+.pink .visit-type-card {
+    border-color: #e95a86 !important;
+}
+.purple {
+    background-color: rgba(156, 123, 189, 0.13);
+    color: #9c7bbd;
+}
+.purple .visit-type-card {
+    border-color: #9c7bbd !important;
+}
+
+.chart-container {
+    margin: 70px auto;
+    width: 95%;
+    background-color: rgba(192, 88, 2, 0.13);
+    /* border: 2px solid #fd8928; */
+    border-radius: 10px;
+    text-align: center;
+    padding-bottom: 30px;
+}
+
+#chart {
+    height: 500px !important;
+    width: 100%;
+}
+
+#chart-thumbnail {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.range-container {
+    height: 50px;
+    width: 98%;
+    margin: 10px auto 0 auto;
+    background-color: rgba(192, 88, 2, 0.13);
+    border-radius: 7px;
+    overflow: hidden;
+    position: relative;
+}
+
+.range {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+}
+
+.selection {
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.drag-left,
+.drag-right {
+    height: 100%;
+    width: 2px;
+    background-color: rgba(255, 255, 255, 0.3);
+    cursor: col-resize;
+    transition: all 0.3s ease;
+}
+
+.drag-left:hover,
+.drag-right:hover {
+    width: 5px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+@media only screen and (max-width: 1250px) {
+    .visit-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    .visit-card:last-child {
+        grid-column: 1 / span 2;
+    }
+}
+
+@media only screen and (max-width: 800px) {
+    #chart {
+        height: 400px !important;
+    }
+}
+
+@media only screen and (max-width: 700px) {
+    .visit-container {
+        margin: 30px auto;
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .visit-card {
+        padding: 15px;
+        border-radius: 7px;
+    }
+    .visit-card:last-child {
+        grid-column: auto;
+    }
+    .visit-card-icon {
+        max-width: 45px;
+        margin: 15px auto;
+    }
+    .visit-type-title {
+        margin-bottom: 5px;
+    }
+
+    .chart-container {
+        margin: 50px auto;
+        border-radius: 7px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #chart {
+        height: 350px !important;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .visit-type-container {
+        grid-template-columns: repeat(1, 1fr);
+    }
+    .visit-type-card {
+        padding: 5px 0;
+        border: none;
+        min-width: 50%;
+        margin: auto;
+    }
+    .visit-type-card:not(:last-child) {
+        border-bottom: 2px solid transparent;
+    }
+}

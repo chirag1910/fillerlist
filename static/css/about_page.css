@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    font-family: "Roboto", sans-serif;
+}
+
+body {
+    background-color: #09121b;
+}
+
+header {
+    display: flex;
+    padding: 10px 20px;
+    justify-content: space-between;
+    background-color: #111b28;
+    align-items: center;
+}
+header img {
+    height: 50px;
+}
+
+header form .search-input {
+    background-color: #080c12;
+    color: #d9e6f2;
+    border: none;
+    border-bottom: 2px #4cc2ff solid;
+    border-radius: 10px;
+    outline: none;
+    font-size: medium;
+    padding: 10px;
+    width: 200px;
+    transition: width 0.3s ease-in-out;
+}
+header form .search-input:hover,
+header form .search-input:focus {
+    width: 250px;
+}
+header form .search-input::placeholder {
+    color: #a6a6a6;
+}
+
+.about-section {
+    min-height: 90vh;
+    text-align: center;
+    padding: 10px 30px;
+}
+.about-section h1 {
+    font-size: xxx-large;
+    color: #ecf2f9;
+    margin: 40px;
+}
+.about-section ul {
+    list-style-type: none;
+    padding: 0;
+}
+.about-section p {
+    color: #ecf2f9;
+    font-size: x-large;
+    margin-bottom: 15px;
+}
+
+footer {
+    display: flex;
+    padding: 20px 20px;
+    justify-content: flex-end;
+    background-color: #111b28;
+}
+footer a {
+    text-decoration: none;
+    color: #ecf2f9;
+    font-size: large;
+}
+
+@media only screen and (max-width: 1000px) {
+    header img {
+        height: 40px;
+    }
+
+    header form .search-input {
+        font-size: medium;
+        padding: 8px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    header form .search-input {
+        font-size: medium;
+        padding: 7px;
+        width: 140px;
+    }
+    header form .search-input:hover,
+    header form .search-input:focus {
+        width: 170px;
+    }
+
+    .about-section h1 {
+        font-size: xx-large;
+        margin: 30px;
+    }
+    .about-section p {
+        font-size: larger;
+        margin-bottom: 10px;
+    }
+}
+
+::-webkit-scrollbar {
+    width: 5px;
+    height: 0px;
+}
+
+::-webkit-scrollbar-track {
+    background: none;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #132639;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: transparent;
+}

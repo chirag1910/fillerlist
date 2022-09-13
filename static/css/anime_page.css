@@ -1,0 +1,119 @@
+.header-wrapper {
+    width: 100%;
+    z-index: 100;
+    position: sticky;
+    top: 0;
+    opacity: 0.5;
+    transition: transform 250ms ease-in-out, opacity 0.3s ease-in-out;
+}
+.header-wrapper:hover,
+.header-wrapper:focus {
+    opacity: 1 !important;
+}
+
+.banner-container {
+    position: fixed;
+    top: 0px;
+    left: 0;
+    z-index: -1;
+    min-height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.info-container {
+    display: flex;
+    min-height: 80vh;
+    align-items: center;
+}
+
+.anime-info.blur {
+    background-color: rgb(0, 0, 0, 0.6);
+    backdrop-filter: blur(40px);
+    border-radius: 30px;
+    mix-blend-mode: luminosity;
+}
+
+.anime-info .anime-name {
+    color: #d9e6f2;
+}
+
+.anime-info .anime-desc,
+.anime-info .anime-status,
+.anime-info .anime-rating {
+    color: #b3cce6;
+}
+
+.table-section .container {
+    background-color: rgb(9, 18, 27, 0.9);
+    border-radius: 30px;
+    backdrop-filter: blur(40px);
+}
+
+.table-section table th {
+    color: #b3cce6;
+}
+
+tr .filler {
+    color: #ff6666;
+}
+tr .canon {
+    color: #66ff66;
+}
+
+.table-sortable th {
+    cursor: pointer;
+}
+
+.table-sortable .th-sort-asc::after {
+    content: "\25be";
+}
+
+.table-sortable .th-sort-desc::after {
+    content: "\25b4";
+}
+
+.table-sortable .th-sort-asc::after,
+.table-sortable .th-sort-desc::after {
+    margin-left: 5px;
+}
+
+.scroll-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    transform: translateY(200%);
+    font-size: x-large;
+    padding: 0px 30px;
+    transition: transform 250ms ease-in-out;
+}
+
+@media only screen and (max-width: 600px) {
+    .info-container {
+        min-height: 50vh;
+    }
+
+    .table-section {
+        margin-bottom: 0;
+    }
+    .table-section .container {
+        min-height: 40vh;
+        border-radius: 30px 30px 0px 0px;
+    }
+
+    .scroll-button {
+        font-size: xx-large;
+    }
+}
+
+@supports not (backdrop-filter: blur(40px)) {
+    .anime-info.blur {
+        background-color: rgb(0, 0, 0, 0.8);
+    }
+
+    .table-section .container {
+        background-color: rgb(9, 18, 27, 0.95);
+    }
+}
