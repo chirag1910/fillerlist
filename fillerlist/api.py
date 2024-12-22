@@ -5,6 +5,9 @@ from fuzzywuzzy import fuzz
 
 
 def get_data():
+    if not path.exists(file_path):
+        return {"data": []}
+
     with open(file_path, "r") as f:
         return json.loads(f.read())
 
