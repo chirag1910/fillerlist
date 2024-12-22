@@ -3,10 +3,17 @@ from . import api
 from . import analytics_api
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from json import dumps
 
 
 def home_page(request):
     context = api.random()
+    context.update({
+        'show_large_navbar': True,
+        'is_home_page': True,
+        'anime_json': dumps(context['data'])
+    })
+
     return render(request, "home_page.html", context)
 
 
@@ -14,25 +21,37 @@ def search_page(request):
     if request.method == 'GET':
         keyword = request.GET.get('q')
         if not keyword:
-            error_page(request)
+            return error_page(request)
         else:
             context = api.search(keyword)
+            context.update({
+                'is_search_page': True,
+                'anime_json': dumps(context['data'])
+            })
+
             return render(request, "search_page.html", context)
     else:
         return error_page(request)
 
 
 def about_page(request):
-    return render(request, "about_page.html")
+    context = {
+        'about_page': True
+    }
+    return render(request, "about_page.html", context)
 
 
 def anime_page(request, id):
     analytics_api.add(request)
     context = api.anime(id)
+    context.update({
+        'anime_json': dumps(context['data'])
+    })
+
     return render(request, "anime_page.html", context)
 
 
-def error_page(request):
+def error_page(request, exception=None):
     return render(request, "error_page.html")
 
 

@@ -2,5 +2,9 @@
 
 <footer>
     <img class="icon" alt="Website icon" src="{% static 'images/icon.png' %}">
+    {% if not about_page %}
     <a href="{% url 'about_page' %}">About</a>
+    {% else %}
+    <a href="{% url 'analytics_page' %}">Analytics</a>
+    {% endif %}
 </footer>

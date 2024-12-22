@@ -5,6 +5,7 @@
         <img class="logo" alt="Website logo" src="{% static 'images/icon.png' %}">
     </a>
     <form method="get" action="/search">
-        <input class="search-input" type="text" name="q" placeholder="Search here..." required>
+        <input class="search-input" type="text" name="q" placeholder="Search here..." value="{{keyword}}" minlength="2"
+            required>
     </form>
 </header>

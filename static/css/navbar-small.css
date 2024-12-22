@@ -2,6 +2,7 @@ header {
     display: flex;
     padding: 10px 20px;
     justify-content: space-between;
+    gap: 10px;
     background-color: #111b28;
     align-items: center;
 }
@@ -12,24 +13,25 @@ header img {
 header form .search-input {
     background-color: #080c12;
     color: #d9e6f2;
-    border: none;
-    border-bottom: 2px #4cc2ff solid;
+    border-color: #4cc2ff;
+    border-style: solid;
+    border-width: 0 0 2px 0;
     border-radius: 10px;
-    outline: none;
     font-size: medium;
     padding: 10px;
-    width: 200px;
-    transition: width 0.3s ease-in-out;
+    max-width: 200px;
 }
-header form .search-input:hover,
+header form .search-input:hover {
+    border-width: 0 2px 2px 2px;
+}
 header form .search-input:focus {
-    width: 250px;
+    border-width: 2px;
 }
 header form .search-input::placeholder {
     color: #a6a6a6;
 }
 
-@media only screen and (max-width: 1000px) {
+@media only screen and (max-width: 600px) {
     header img {
         height: 40px;
     }
@@ -37,17 +39,6 @@ header form .search-input::placeholder {
     header form .search-input {
         font-size: medium;
         padding: 8px;
-    }
-}
-
-@media only screen and (max-width: 600px) {
-    header form .search-input {
-        font-size: medium;
-        padding: 7px;
-        width: 140px;
-    }
-    header form .search-input:hover,
-    header form .search-input:focus {
-        width: 170px;
+        max-width: 140px;
     }
 }

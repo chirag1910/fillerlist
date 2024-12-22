@@ -13,7 +13,6 @@ var draggingLeft = false;
 var draggingRight = false;
 
 container.addEventListener(touchDevice ? "touchstart" : "mousedown", (e) => {
-    // e.preventDefault();
     const relMouseX =
         (touchDevice ? e.changedTouches[0].pageX : e.pageX) -
         container.getBoundingClientRect().left;
@@ -30,8 +29,6 @@ container.addEventListener(touchDevice ? "touchstart" : "mousedown", (e) => {
 });
 
 document.addEventListener(touchDevice ? "touchmove" : "mousemove", (e) => {
-    // e.preventDefault();
-
     if (draggingLeft) {
         const relMouseX =
             (touchDevice ? e.changedTouches[0].pageX : e.pageX) -
@@ -64,7 +61,6 @@ document.addEventListener(touchDevice ? "touchmove" : "mousemove", (e) => {
 });
 
 document.addEventListener(touchDevice ? "touchend" : "mouseup", (e) => {
-    // e.preventDefault();
     draggingRight = false;
     draggingLeft = false;
 });

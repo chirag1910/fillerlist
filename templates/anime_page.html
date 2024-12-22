@@ -1,103 +1,95 @@
+{% extends 'base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.8">
-    <meta name="description" content="{{data.description}}">
-    <meta name="author" content="Chirag">
-    <meta name="keywords" content="{{data.title}}, Fillers, Filler list, Anime, anime fillers, fillerlist.com">
+{% block meta_tags %}
+{{block.super}}
+<meta name="keywords" content="{{data.title}}, Fillers, Filler list, Anime, anime fillers, fillerlist.com">
+{% endblock %}
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&amp;display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'css/anime_page.css' %}">
+{% endblock %}
 
-    <link href="{% static 'images/icon.png' %}" rel="shortcut icon" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/anime_page.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/index.css' %}">
+{% block title %}
+<title>{{data.title}} | Fillerlist</title>
+{% endblock %}
 
-    <title>{{data.title}} | Fillerlist</title>
-</head>
+{% block body_content %}
 
-<body>
-    <div class="header-wrapper">
-        {% include 'navbar.html' %}
+<div class="banner-container"></div>
+
+<section class="info-container">
+    <div class="container mx-auto flex px-5 py-10 md:flex-row flex-col items-center">
+        <div
+            class="anime-info blur lg:flex-grow md:w-1/1 flex flex-col md:items-center md:text-center items-center text-center py-10 px-10">
+            <h1 class="anime-name sm:text-4xl text-3xl mb-4 font-medium">{{data.title}}</h1>
+            <p class="anime-desc mb-8 leading-relaxed">{{data.description}}</p>
+            <div class="flex sm:flex-row flex-col items-center justify-between gap-3 w-full">
+                <p class="anime-status leading-relaxed">Status: N/A</p>
+                <p class="anime-rating leading-relaxed">Rating: --%</p>
+            </div>
+        </div>
     </div>
+</section>
 
-    <div class="banner-container"></div>
+<section class="table-section body-font mb-10">
+    <div class="container px-5 py-10 mx-auto">
+        <div class="lg:w-3/3 w-full mx-auto overflow-auto">
+            <table class="table-sortable table-auto w-full text-center">
+                <thead>
+                    <tr>
+                        <th
+                            class="th-sort-asc px-4 py-3 title-font tracking-wider font-medium text-sm bg-gray-900 rounded-tl rounded-bl">
+                            Number</th>
+                        <th class="px-4 py-3 title-font tracking-wider font-medium text-sm bg-gray-900">
+                            Title</th>
+                        <th class="px-4 py-3 title-font tracking-wider font-medium text-sm bg-gray-900">
+                            Type
+                        </th>
+                        <th
+                            class="px-4 py-3 title-font tracking-wider font-medium text-sm bg-gray-900 rounded-tr rounded-br">
+                            Air date
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for episode in data.episodes %}
+                    <tr>
+                        {% if episode.type != "Filler" %}
+                        <td class="canon px-4 py-3 text-lg1">{{episode.number}}</td>
+                        <td class="canon px-4 py-3 text-lg1">{{episode.name}}</td>
+                        <td class="canon px-4 py-3 text-lg1">{{episode.type}}</td>
+                        <td class="canon px-4 py-3 text-lg1">{{episode.air_date}}</td>
+                        {% else %}
+                        <td class="filler px-4 py-3 text-lg1">{{episode.number}}</td>
+                        <td class="filler px-4 py-3 text-lg1">{{episode.name}}</td>
+                        <td class="filler px-4 py-3 text-lg1">{{episode.type}}</td>
+                        <td class="filler px-4 py-3 text-lg1">{{episode.air_date}}</td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
 
-    <section class="info-container">
-        <div class="container mx-auto flex px-5 py-10 md:flex-row flex-col items-center">
-            <div
-                class="anime-info blur lg:flex-grow md:w-1/1 flex flex-col md:items-center md:text-center items-center text-center py-10 px-10">
-                <h1 class="anime-name sm:text-4xl text-3xl mb-4 font-medium">{{data.title}}</h1>
-                <p class="anime-desc mb-8 leading-relaxed">{{data.description}}</p>
-                <div class="flex sm:flex-row flex-col items-center justify-between gap-3 w-full">
-                    <p class="anime-status leading-relaxed">Status: N/A</p>
-                    <p class="anime-rating leading-relaxed">Rating: --%</p>
-                </div>
-            </div>
+                </tbody>
+            </table>
+            {% if not data.episodes %}
+            <p class="my-8 mx-5 leading-relaxed text-center sm:text-3xl text-2xl font-medium text-white">No episodes
+                to show!</p>
+            {% endif %}
         </div>
-    </section>
+    </div>
+</section>
 
-    <section class="table-section body-font mb-10">
-        <div class="container px-5 py-10 mx-auto">
-            <div class="lg:w-3/3 w-full mx-auto overflow-auto">
-                <table class="table-sortable table-auto w-full text-center">
-                    <thead>
-                        <tr>
-                            <th
-                                class="th-sort-asc px-4 py-3 title-font tracking-wider font-medium text-sm bg-gray-900 rounded-tl rounded-bl">
-                                Number</th>
-                            <th class="px-4 py-3 title-font tracking-wider font-medium text-sm bg-gray-900">
-                                Title</th>
-                            <th class="px-4 py-3 title-font tracking-wider font-medium text-sm bg-gray-900">
-                                Type
-                            </th>
-                            <th
-                                class="px-4 py-3 title-font tracking-wider font-medium text-sm bg-gray-900 rounded-tr rounded-br">
-                                Air date
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for episode in data.episodes %}
-                        <tr>
-                            {% if episode.type != "Filler" %}
-                            <td class="canon px-4 py-3 text-lg1">{{episode.number}}</td>
-                            <td class="canon px-4 py-3 text-lg1">{{episode.name}}</td>
-                            <td class="canon px-4 py-3 text-lg1">{{episode.type}}</td>
-                            <td class="canon px-4 py-3 text-lg1">{{episode.air_date}}</td>
-                            {% else %}
-                            <td class="filler px-4 py-3 text-lg1">{{episode.number}}</td>
-                            <td class="filler px-4 py-3 text-lg1">{{episode.name}}</td>
-                            <td class="filler px-4 py-3 text-lg1">{{episode.type}}</td>
-                            <td class="filler px-4 py-3 text-lg1">{{episode.air_date}}</td>
-                            {% endif %}
-                        </tr>
-                        {% endfor %}
+<button class="scroll-button bg-blue-500 hover:bg-blue-700 text-white font-bold rounded-full" title="Scroll to top"
+    type="button"><i class="fa fa-angle-up"></i></button>
 
-                    </tbody>
-                </table>
-                {% if not data.episodes %}
-                <p class="my-8 mx-5 leading-relaxed text-center sm:text-3xl text-2xl font-medium text-white">No episodes
-                    to show!</p>
-                {% endif %}
-            </div>
-        </div>
-    </section>
+{% endblock %}
 
-    <button class="scroll-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-3 rounded-full"><i
-            class="fa fa-angle-up"></i></button>
-
-    {% include 'footer.html' %}
-
-</body>
+{% block scripts %}
+<script type="text/javascript">
+    const anime = {{ anime_json | safe }};
+</script>
 <script type="text/javascript" src="{% static 'js/anime_page.js' %}"></script>
-
-</html>
+{% endblock %}

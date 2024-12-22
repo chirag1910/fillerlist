@@ -1,102 +1,72 @@
-.anime-card {
-    height: 265px;
-    min-width: 300px;
-    width: 45%;
-    margin: 2%;
-    border-radius: 12px;
-    display: inline-block;
+:root {
+    --card-height: 265px;
+    --spacing: 15px;
+    --border-radius: 12px;
 }
+
+.anime-card {
+    height: var(--card-height);
+    border-radius: var(--border-radius);
+    display: grid;
+    grid-template-columns: auto 1fr;
+    overflow: hidden;
+}
+
 .anime-card .anime-card-image {
-    float: left;
-    height: 100%;
-    width: 185px;
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
+    height: var(--card-height);
     color: #a6a6a6;
 }
-.anime-card .anime-card-info {
-    position: relative;
-    text-align: left;
-    padding: 0px 20px;
-    float: right;
-    height: 100%;
-    width: calc(100% - 185px);
+
+.anime-card .anime-card-info-container {
+    height: var(--card-height);
     background-color: #111925;
-    border-bottom-right-radius: 12px;
-    border-top-right-radius: 12px;
+    padding: var(--spacing);
 }
+
+.anime-card .anime-card-info-container .anime-card-info {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing);
+    text-align: left;
+    overflow-y: auto;
+}
+
 .anime-card .anime-card-info .anime-card-info-name {
     color: #d9e6f2;
-    margin-top: 15px;
     font-size: large;
     font-weight: bold;
-    max-height: 35%;
-    overflow-y: auto;
-    overflow-wrap: anywhere;
-}
-.anime-card .anime-card-info .anime-card-info-desc {
-    color: #b3cce6;
-    margin-top: 10px;
-    font-size: medium;
-    max-height: 35%;
-    overflow-y: auto;
     overflow-wrap: anywhere;
 }
 .anime-card .anime-card-info .anime-card-info-episodes {
     color: #b3cce6;
-    margin-top: 10px;
     font-size: large;
     white-space: nowrap;
-    overflow-x: auto;
-    position: absolute;
-    left: 20px;
-    bottom: 15px;
-    width: calc(100% - 40px);
+}
+.anime-card .anime-card-info .anime-card-info-desc {
+    color: #b3cce6;
+    font-size: medium;
+    overflow-wrap: anywhere;
 }
 
-@media only screen and (min-width: 1300px) {
-    .anime-card {
-        max-width: 600px;
+@media only screen and (max-width: 1100px) {
+    :root {
+        --spacing: 10px;
+        --card-height: 200px;
     }
 }
 
-@media only screen and (max-width: 1000px) {
-    .anime-card {
-        width: 80%;
-        display: block;
-        margin: 25px auto;
+@media only screen and (max-width: 900px) {
+    :root {
+        --spacing: 15px;
+        --card-height: 265px;
     }
 }
 
 @media only screen and (max-width: 600px) {
-    .anime-card {
-        height: 160px;
-        min-width: 80%;
-        width: 90%;
-        margin: 20px;
-        border-radius: 7px;
-        display: block;
-    }
-    .anime-card .anime-card-image {
-        width: 104px;
-        border-top-left-radius: 7px;
-        border-bottom-left-radius: 7px;
-    }
-    .anime-card .anime-card-info {
-        width: calc(100% - 104px);
-        border-bottom-right-radius: 7px;
-        border-top-right-radius: 7px;
-    }
-    .anime-card .anime-card-info .anime-card-info-name {
-        font-size: large;
-        margin-top: 10px;
-        max-height: 27%;
-    }
-    .anime-card .anime-card-info .anime-card-info-desc {
-        font-size: medium;
-    }
-    .anime-card .anime-card-info .anime-card-info-episodes {
-        font-size: large;
-        bottom: 10px;
+    :root {
+        --spacing: 10px;
+        --card-height: 160px;
+        --border-radius: 7px;
     }
 }

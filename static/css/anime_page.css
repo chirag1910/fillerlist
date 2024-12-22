@@ -1,4 +1,4 @@
-.header-wrapper {
+header {
     width: 100%;
     z-index: 100;
     position: sticky;
@@ -6,8 +6,8 @@
     opacity: 0.5;
     transition: transform 250ms ease-in-out, opacity 0.3s ease-in-out;
 }
-.header-wrapper:hover,
-.header-wrapper:focus {
+header:hover,
+header:focus {
     opacity: 1 !important;
 }
 
@@ -86,8 +86,11 @@ tr .canon {
     right: 20px;
     transform: translateY(200%);
     font-size: x-large;
-    padding: 0px 30px;
     transition: transform 250ms ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 30px;
 }
 
 @media only screen and (max-width: 600px) {
@@ -105,6 +108,7 @@ tr .canon {
 
     .scroll-button {
         font-size: xx-large;
+        padding: 7px 20px;
     }
 }
 

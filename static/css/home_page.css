@@ -1,227 +1,35 @@
-*{
-    margin: 0;
-    font-family: 'Roboto', sans-serif;
-}
-
-body{
-    background-color: #09121B;
-}
-
-header{
-    background-color: #111B28;
-    width: 100%;
+.main {
     text-align: center;
-    padding: 70px 0;
-}
-header img{
-    width: 50%;
-}
-
-.search-box{
+    padding: 20px;
+    padding-bottom: 60px;
+    width: 90%;
     margin: auto;
-    padding: 70px 0;
-    width: 70%;
-}
-.search-box form{
-    display: flex;
-    justify-content: space-evenly;
-}
-.search-box .search-button{
-    border-radius: 10px;
-    width: 57px;
-    height: 57px;
-    transition: transform .3s ease-in-out;
-    background-color: #080c12;
-    border: none;
-    border-bottom: 2px #4CC2FF solid;
-}
-.search-box .search-button:hover{
-    transform: scale(1.2);
-}
-.search-box .search-input{
-    width: 70%;
-    background-color: #080c12;
-    color: #d9e6f2;
-    border: none;
-    border-bottom: 2px #4CC2FF solid;
-    border-radius: 10px;
-    outline: none;
-    font-size:19px;
-    padding: 15px;
-    margin-right: 15px;
-    transition: width .3s;
-}
-.search-box .search-input:hover, .search-box .search-input:focus{
-    width: 75%;
-}
-.search-box .search-input::placeholder{
-    color: #a6a6a6;
 }
 
-.random-picks{
-    text-align: center;
-}
-.random-picks a{
-    text-decoration: none;
-}
-.random-picks .random-picks-title{
+.page-title {
     color: #ecf2f9;
     font-size: xx-large;
-}
-.random-picks .random-picks-desc{
-    margin-top: 40px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
-.anime-card{
-    height: 265px;
-    min-width: 300px;
-    width: 45%;
-    margin: 2%;
-    border-radius: 12px;
-    display: inline-block;
-}
-.anime-card .anime-card-image{
-    float: left;
-    height:100%;
-    width: 185px;
-    border-top-left-radius: 12px;
-    border-bottom-left-radius: 12px;
-    color: #a6a6a6;
-}
-.anime-card .anime-card-info{
-    position: relative;
-    text-align: left;
-    padding: 0px 20px;
-    float: right;
-    height: 100%;
-    width: calc(100% - 185px - 40px);
-    background-color: #111925;
-    border-bottom-right-radius: 12px;
-    border-top-right-radius: 12px;
-}
-.anime-card .anime-card-info .anime-card-info-name{
-    color: #d9e6f2;
-    margin-top: 15px;
-    font-size: large;
-    font-weight: bold;
-    max-height: 35%;
-    overflow-y: auto;
-    overflow-wrap: anywhere;
-}
-.anime-card .anime-card-info .anime-card-info-desc{
-    color: #b3cce6;
-    margin-top: 10px;
-    font-size: medium;
-    max-height: 35%;
-    overflow-y: auto;
-    overflow-wrap: anywhere;
-}
-.anime-card .anime-card-info .anime-card-info-episodes{
-    color: #b3cce6;
-    margin-top: 10px;
-    font-size: large;
-    white-space: nowrap;
-    overflow-x: auto;
-    position: absolute;
-    left: 20px;
-    bottom: 15px;
-    width: calc(100% - 40px);
+.cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
 }
 
-footer{
-    display: flex;
-    padding: 10px 20px;
-    justify-content: space-between;
-    background-color: #111B28;
-}
-footer img{
-    width: 50px;
-}
-footer a{
-    text-decoration: none;
-    color: #ecf2f9;
-    font-size: large;
-    padding-top: 15px;
-}
-
-@media only screen and (min-width: 1300px){
-    .anime-card{
-        max-width: 600px;
-    }
-}
-
-@media only screen and (max-width: 1000px){
-    header img{
-        width: 60%;
+@media only screen and (max-width: 1100px) {
+    .main {
+        width: 100%;
     }
 
-    .search-box{
-        width: 85%;
-    }
-
-    .anime-card{
-        width:80%;
-        display: block;
-        margin: 25px auto;
-    }
-}
-
-@media only screen and (max-width: 600px){
-    header img{
-        width: 65%;
-    }
-
-    .random-picks .random-picks-title{
+    .page-title {
         font-size: x-large;
     }
-
-    .anime-card{
-        height: 160px;
-        min-width: 80%;
-        width: 90%;
-        margin: 20px;
-        border-radius: 7px;
-        display: block;
-    }
-    .anime-card .anime-card-image{
-        width: 104px;
-        border-top-left-radius: 7px;
-        border-bottom-left-radius: 7px;
-    }
-    .anime-card .anime-card-info{
-        width: calc(100% - 104px - 40px);
-        border-bottom-right-radius: 7px;
-        border-top-right-radius: 7px;
-    }
-    .anime-card .anime-card-info .anime-card-info-name{
-        font-size: large;
-        margin-top: 10px;
-        max-height: 27%;
-    }
-    .anime-card .anime-card-info .anime-card-info-desc{
-        font-size: medium;
-    }
-    .anime-card .anime-card-info .anime-card-info-episodes{
-        font-size: large;
-        bottom: 10px;
-    }
 }
 
-::-webkit-scrollbar {
-    width: 5px;
-    height: 0px;
-}
-
-::-webkit-scrollbar-track {
-    background: none;
-}
-
-::-webkit-scrollbar-thumb {
-    background: #132639;
-    border-radius: 10px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: transparent;
+@media only screen and (max-width: 900px) {
+    .cards {
+        grid-template-columns: 1fr;
+    }
 }

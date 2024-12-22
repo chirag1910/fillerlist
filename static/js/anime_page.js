@@ -1,20 +1,9 @@
-// image loader
-let anime_name = document.querySelector(
-    ".info-container .blur .anime-name"
-).innerText;
-let anime_image = document.querySelector(".banner-container");
-let anime_status = document.querySelector(".anime-status");
-let anime_rating = document.querySelector(".anime-rating");
-get_image_src(anime_name, anime_image, anime_status, anime_rating);
+// NOTE: var anime must be defined in the html file in script tag
 
-function get_image_src(anime_name, anime_image, anime_status, anime_rating) {
-    if (anime_name.includes("(")) {
-        anime_name = anime_name.split("(")[0];
-    }
-
-    var query = `
-        query ($search: String) {
-            Media (search: $search, type: ANIME) {
+const build_graphql_query = (anime_name) => {
+    return `
+        query {
+            Media (search: "${anime_name}", type: ANIME) {
                 bannerImage
                 coverImage{
                     extraLarge
@@ -24,59 +13,59 @@ function get_image_src(anime_name, anime_image, anime_status, anime_rating) {
             }
         }
     `;
+};
 
-    var variables = {
-        search: anime_name,
+const fetch_graphql_query = async (query) => {
+    const url = "https://graphql.anilist.co";
+
+    const options = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+        },
+        body: JSON.stringify({
+            query: query,
+        }),
     };
 
-    var url = "https://graphql.anilist.co",
-        options = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Accept: "application/json",
-            },
-            body: JSON.stringify({
-                query: query,
-                variables: variables,
-            }),
-        };
+    const response = await fetch(url, options);
+    const data = await response.json();
+    return data;
+};
 
-    fetch(url, options)
-        .then(handleResponse)
-        .then(handleData)
-        .catch(handleError);
+const set_data = (anime_data) => {
+    const anime_image = document.querySelector(".banner-container");
+    const anime_status = document.querySelector(".anime-status");
+    const anime_rating = document.querySelector(".anime-rating");
 
-    function handleResponse(response) {
-        return response.json().then(function (json) {
-            return response.ok ? json : Promise.reject(json);
-        });
-    }
-
-    function handleData(data) {
+    try {
         if (window.innerWidth > 600) {
             anime_image.style.backgroundImage =
-                "url(" + data["data"]["Media"]["bannerImage"] + ")";
+                "url(" + anime_data.bannerImage + ")";
         } else {
             anime_image.style.backgroundImage =
-                "url(" +
-                data["data"]["Media"]["coverImage"]["extraLarge"] +
-                ")";
+                "url(" + anime_data.coverImage.extraLarge + ")";
         }
-        anime_status.innerText = `Status: ${
-            data["data"]["Media"]["status"] || "N/A"
-        }`;
-        anime_rating.innerText = `Rating: ${
-            data["data"]["Media"]["averageScore"] || "--"
-        }%`;
-    }
 
-    function handleError(error) {
-        anime_image.style.backgroundImage =
-            "linear-gradient(to top, rgb(0,0,0,0.8), transparent), url('https://s4.anilist.co/file/anilistcdn/character/large/default.jpg')";
-        anime_image.style.backgroundRepeat = "repeat";
-        anime_image.style.backgroundSize = "auto";
+        anime_status.innerText = `Status: ${anime_data.status}`;
+        anime_rating.innerText = `Rating: ${anime_data.averageScore}%`;
+    } catch (error) {
+        // console.error(error);
     }
+};
+
+const main = async () => {
+    const query = build_graphql_query(anime.title);
+    const data = await fetch_graphql_query(query);
+
+    if (data.errors === undefined) {
+        set_data(data.data.Media);
+    }
+};
+
+if (anime) {
+    main();
 }
 
 // table sorter
@@ -131,13 +120,13 @@ document.querySelectorAll(".table-sortable th").forEach((headerCell) => {
 
 // scroll detector
 var lastScrollTop = 0;
-var header = document.querySelector(".header-wrapper");
+var header = document.querySelector("header");
 var scroll_button = document.querySelector(".scroll-button");
 
 window.addEventListener(
     "scroll",
     function () {
-        var st = window.pageYOffset || document.documentElement.scrollTop;
+        var st = window.scrollY || document.documentElement.scrollTop;
         if (st > lastScrollTop && st > 100) {
             // 100 is hardcoded based on navbar height
             header.style.transform = "translateY(-100%)";

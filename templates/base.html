@@ -1,0 +1,61 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="List of filler episodes of animes.">
+    <meta name="author" content="Chirag">
+    <meta name="keywords" content="Fillers, Filler list, Anime, anime fillers, fillerlist.com">
+
+    {% block meta_tags %}
+    {% endblock %}
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&amp;display=swap" rel="stylesheet">
+    <link href="{% static 'images/icon.png' %}" rel="shortcut icon" type="image/x-icon">
+
+    {% if show_large_navbar %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/navbar-large.css' %}">
+    {% else %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/navbar-small.css' %}">
+    {% endif %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/common.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/footer.css' %}">
+
+    {% block stylesheets %}
+    {% endblock %}
+
+    {% block head_scripts %}
+    {% endblock %}
+
+    {% block title %}
+    <title>Fillerlist</title>
+    {% endblock %}
+</head>
+
+<body>
+    {% if show_large_navbar %}
+    {% include 'navbar-large.html' %}
+    {% else %}
+    {% include 'navbar-small.html' %}
+    {% endif %}
+
+    {% block body_content %}
+    {% endblock %}
+
+    {% include 'footer.html' %}
+
+    {% if is_home_page or is_search_page %}
+    <script type="text/javascript" src="{% static 'js/vanilla-tilt.js' %}"></script>
+    <script type="text/javascript">VanillaTilt.init(document.querySelectorAll(".anime-card"));</script>
+    {% endif %}
+
+    {% block scripts %}
+    {% endblock %}
+</body>
+
+</html>

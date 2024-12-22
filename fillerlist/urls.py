@@ -31,5 +31,5 @@ urlpatterns = [
     path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
 ]
 
-# handler404 = views.error_page
-# handler500 = views.error_page
+handler404 = views.error_page
+handler500 = views.error_page

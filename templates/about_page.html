@@ -1,64 +1,48 @@
+{% extends 'base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
+{% block stylesheets %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/about_page.css' %}">
+{% endblock %}
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="List of filler episodes of animes.">
-    <meta name="author" content="Chirag">
-    <meta name="keywords" content="Fillers, Filler list, Anime, anime fillers, fillerlist.com">
+{% block title %}
+<title>About | Fillerlist</title>
+{% endblock %}
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&amp;display=swap" rel="stylesheet">
+{% block body_content %}
 
-    <link href="{% static 'images/icon.png' %}" rel="shortcut icon" type="image/x-icon">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/about_page.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/navbar.css' %}">
-
-    <title>About | Fillerlist</title>
-</head>
-
-<body>
-    {% include 'navbar.html' %}
-
-    <div class="about-section">
-        <div>
-            <h1>
-                About
-            </h1>
-            <div class="container">
-                <p>"Filler" refers to story in an Anime that was not in the Manga. These are created because Anime
-                    production usually outpaces the Manga. Here you can find the list of those episodes.</p>
-            </div>
-        </div>
-
-        <div>
-            <h1>
-                Attribution
-            </h1>
-            <div class="container">
-                <ul>
-                    <li>
-                        <p>Data source: animefillerlist.com</p>
-                    </li>
-                    <li>
-                        <p>Image source: anilist.co</p>
-                    </li>
-                    <li>
-                        <p>Website by: Chirag</p>
-                    </li>
-                    <li>
-                        <p>Email: xdotaku80@gmail.com</p>
-                    </li>
-                </ul>
-            </div>
+<div class="main">
+    <div>
+        <h1 class="page-title">
+            About
+        </h1>
+        <div class="page-description">
+            <p>"Filler" refers to story in an Anime that was not in the Manga. These are created because Anime
+                production usually outpaces the Manga. Here you can find the list of those episodes.</p>
         </div>
     </div>
 
-    {% include 'footer.html' %}
+    <div>
+        <h2 class="page-title">
+            Attribution
+        </h2>
+        <div class="page-description">
+            <ul>
+                <li>
+                    <p>Data source: animefillerlist.com</p>
+                </li>
+                <li>
+                    <p>Image source: anilist.co</p>
+                </li>
+                <li>
+                    <p>Website by: Chirag</p>
+                </li>
+                <li>
+                    <p>Email: xdotaku80@gmail.com</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
 
-</body>
-
-</html>
+{% endblock %}
