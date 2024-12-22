@@ -26,9 +26,7 @@ SECRET_KEY = 'django-insecure-a+2749s#6ost@10snesc92jxrt^#&a%_q!nrv04zw2lpkj188j
 # DEBUG = False
 DEBUG = True
 
-# ALLOWED_HOSTS = ['fillerlist.pythonanywhere.com']
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = ['fillerlist.onrender.com']
 
 # Application definition
 
