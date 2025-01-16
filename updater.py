@@ -16,7 +16,7 @@ try:
     anime_id = 1
 
     # anime names
-    for anime in anime_list[:4]:
+    for anime in anime_list:
         source_link = f"https://www.animefillerlist.com{anime.get('href')}"
         data_string["anime"].append(
             {"id": anime_id, "title": anime.text, "source_link": source_link})
