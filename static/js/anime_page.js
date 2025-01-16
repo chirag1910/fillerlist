@@ -1,6 +1,14 @@
 // NOTE: var anime must be defined in the html file in script tag
 
 const build_graphql_query = (anime_name) => {
+    if (anime_name.includes("(")) {
+        anime_name = anime_name.split("(")[0];
+    }
+
+    if (anime_name.includes(":")) {
+        anime_name = anime_name.split(":")[0];
+    }
+
     return `
         query {
             Media (search: "${anime_name}", type: ANIME) {

@@ -7,19 +7,24 @@ from json import dumps
 
 
 def home_page(request):
-    context = api.random()
-    context.update({
-        'show_large_navbar': True,
-        'is_home_page': True,
-        'anime_json': dumps(context['data'])
-    })
+    if request.method == 'GET':
+        context = api.random()
+        print(context)
+        context.update({
+            'show_large_navbar': True,
+            'is_home_page': True,
+            'anime_json': dumps(context['data'])
+        })
 
-    return render(request, "home_page.html", context)
+        return render(request, "home_page.html", context)
+    else:
+        return error_page(request)
 
 
 def search_page(request):
     if request.method == 'GET':
         keyword = request.GET.get('q')
+
         if not keyword:
             return error_page(request)
         else:
@@ -35,20 +40,28 @@ def search_page(request):
 
 
 def about_page(request):
-    context = {
-        'about_page': True
-    }
-    return render(request, "about_page.html", context)
+    if request.method == 'GET':
+        context = {
+            'about_page': True
+        }
+
+        return render(request, "about_page.html", context)
+    else:
+        return error_page(request)
 
 
 def anime_page(request, id):
-    analytics_api.add(request)
-    context = api.anime(id)
-    context.update({
-        'anime_json': dumps(context['data'])
-    })
+    if request.method == 'GET':
+        analytics_api.add(request)
 
-    return render(request, "anime_page.html", context)
+        context = api.anime(id)
+        context.update({
+            'anime_json': dumps(context['data'])
+        })
+
+        return render(request, "anime_page.html", context)
+    else:
+        return error_page(request)
 
 
 def error_page(request, exception=None):

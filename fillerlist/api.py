@@ -1,65 +1,58 @@
+from anime_list.models import Anime, Episode
 import json
-from os import path
-from random import choice
-from fuzzywuzzy import fuzz
-
-
-def get_data():
-    if not path.exists(file_path):
-        return {"data": []}
-
-    with open(file_path, "r") as f:
-        return json.loads(f.read())
 
 
 def update_data(file):
-    with open(file_path, 'wb+') as f:
-        for chunk in file.chunks():
-            f.write(chunk)
+    data = json.loads(file.read().decode('utf-8'))
+
+    # Delete all previous data first
+    Anime.objects.all().delete()
+
+    animes_to_create = []
+
+    for anime_data in data["anime"]:
+        anime = Anime(
+            title=anime_data["title"],
+            description=anime_data["description"]
+        )
+
+        animes_to_create.append(anime)
+
+    Anime.objects.bulk_create(animes_to_create)
+
+    title_object_map = {anime.title: anime for anime in animes_to_create}
+
+    episode_to_create = []
+
+    for anime_data in data["anime"]:
+        anime = title_object_map[anime_data["title"]]
+
+        for episode_data in anime_data["episodes"]:
+            episode = Episode(
+                number=episode_data["number"],
+                title=episode_data["name"],
+                type=episode_data["type"].split(" ")[0].lower(),
+                air_date=episode_data["air_date"],
+                anime=anime
+            )
+
+            episode_to_create.append(episode)
+
+    Episode.objects.bulk_create(episode_to_create)
 
 
-def random(limit=10):
-    response = {"data": []}
-
-    count = 0
-    while count < limit:
-        random_anime = choice(raw_data["anime"])
-        if random_anime not in response["data"]:
-            random_anime["cover"] = "https://s4.anilist.co/file/anilistcdn/character/large/default.jpg"
-            response["data"].append(random_anime)
-            count += 1
-
-    return response
+def random(count=10):
+    collection = Anime.objects.get_random(count)
+    return {"data": [anime.to_dict() for anime in collection]}
 
 
 def search(keyword):
-    response = {"data": [], "keyword": keyword}
-
-    for anime in raw_data["anime"]:
-        match = fuzz.partial_ratio(keyword, anime["title"])
-
-        if match > 50:
-            anime["match"] = match
-            anime["cover"] = "https://s4.anilist.co/file/anilistcdn/character/large/default.jpg"
-
-            response["data"].append(anime)
-
-    response["data"] = sorted(
-        response["data"], key=lambda x: x["match"], reverse=True)
-
-    return response
+    collection = Anime.objects.search(keyword)
+    return {
+        "data": [anime.to_dict() for anime in collection],
+        "keyword": keyword
+    }
 
 
 def anime(id):
-    for anime in raw_data["anime"]:
-        if int(anime["id"]) == int(id):
-            return {"data": anime}
-
-    # manual error in website to redirect to error page.
-    int('a')
-
-
-file_path = path.join(path.dirname(
-    path.abspath(__file__)), "fillerlist_data.json")
-
-raw_data = get_data()
+    return {"data": Anime.objects.get(id=int(id)).to_dict(detailed=True)}

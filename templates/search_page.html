@@ -22,12 +22,13 @@
         {% for anime in data %}
         <a href="/id/{{anime.id}}">
             <div id="anime-card-{{anime.id}}" class="anime-card">
-                <img class="anime-card-image" src="{{anime.cover}}" alt="{{anime.title|slice:':15'}} poster">
+                <img class="anime-card-image" src="https://s4.anilist.co/file/anilistcdn/character/large/default.jpg"
+                    alt="{{anime.title|slice:':15'}} poster">
                 <div class="anime-card-info-container">
                     <div class="anime-card-info">
                         <div class="anime-card-info-name">{{anime.title}}</div>
                         <div class="anime-card-info-desc">{{anime.description}}</div>
-                        <div class="anime-card-info-episodes">Episodes: {{anime.episodes|length}}</div>
+                        <div class="anime-card-info-episodes">Episodes: {{anime.episode_count}}</div>
                     </div>
                 </div>
             </div>

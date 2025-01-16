@@ -60,12 +60,12 @@
                     <tr>
                         {% if episode.type != "Filler" %}
                         <td class="canon px-4 py-3 text-lg1">{{episode.number}}</td>
-                        <td class="canon px-4 py-3 text-lg1">{{episode.name}}</td>
+                        <td class="canon px-4 py-3 text-lg1">{{episode.title}}</td>
                         <td class="canon px-4 py-3 text-lg1">{{episode.type}}</td>
                         <td class="canon px-4 py-3 text-lg1">{{episode.air_date}}</td>
                         {% else %}
                         <td class="filler px-4 py-3 text-lg1">{{episode.number}}</td>
-                        <td class="filler px-4 py-3 text-lg1">{{episode.name}}</td>
+                        <td class="filler px-4 py-3 text-lg1">{{episode.title}}</td>
                         <td class="filler px-4 py-3 text-lg1">{{episode.type}}</td>
                         <td class="filler px-4 py-3 text-lg1">{{episode.air_date}}</td>
                         {% endif %}
