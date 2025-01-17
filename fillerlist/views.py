@@ -9,7 +9,6 @@ from json import dumps
 def home_page(request):
     if request.method == 'GET':
         context = api.random()
-        print(context)
         context.update({
             'show_large_navbar': True,
             'is_home_page': True,

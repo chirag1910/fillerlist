@@ -54,8 +54,8 @@ files = {'file': open(
 params = {"key": "tX3rO7qO6vN4oP6"}
 
 try:
-    # URL = "https://fillerlist.onrender.com/update/"
-    URL = "http://localhost:8000/update/"
+    URL = "https://fillerlist.onrender.com/update/"
+    # URL = "http://localhost:8000/update/"
 
     response = post(URL, files=files, data=params).json()
 
