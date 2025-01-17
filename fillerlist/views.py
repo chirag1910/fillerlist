@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from anime import api as anime_api
-from . import analytics_api
+from analytics import api as analytics_api
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from json import dumps
