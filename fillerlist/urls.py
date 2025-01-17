@@ -14,21 +14,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 from django.conf.urls import handler404, handler500
 from django.views.generic.base import TemplateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home_page, name='home_page'),
-    path('search', views.search_page, name='search_page'),
-    path('id/<id>', views.anime_page, name='anime_page'),
-    path('about', views.about_page, name='about_page'),
-    path('404', views.error_page, name='error_page'),
-    path('update', views.update_file, name='update_page'),
-    path('analytics', views.analytics_page, name='analytics_page'),
-    path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
+    re_path(r'^/?$', views.home_page, name='home_page'),
+    re_path(r'^search/?$', views.search_page, name='search_page'),
+    re_path(r'^id/(?P<id>[^/]+)/?$', views.anime_page, name='anime_page'),
+    re_path(r'^about/?$', views.about_page, name='about_page'),
+    re_path(r'^404/?$', views.error_page, name='error_page'),
+    re_path(r'^update/?$', views.update_file, name='update_page'),
+    re_path(r'^analytics/?$', views.analytics_page, name='analytics_page'),
+    re_path(r'^robots\.txt/?$', TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
 ]
 
 handler404 = views.error_page
