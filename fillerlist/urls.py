@@ -22,12 +22,12 @@ from django.views.generic.base import TemplateView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home_page, name='home_page'),
-    path('search/', views.search_page, name='search_page'),
+    path('search', views.search_page, name='search_page'),
     path('id/<id>', views.anime_page, name='anime_page'),
-    path('about/', views.about_page, name='about_page'),
-    path('404/', views.error_page, name='error_page'),
-    path('update/', views.update_file, name='update_page'),
-    path('analytics/', views.analytics_page, name='analytics_page'),
+    path('about', views.about_page, name='about_page'),
+    path('404', views.error_page, name='error_page'),
+    path('update', views.update_file, name='update_page'),
+    path('analytics', views.analytics_page, name='analytics_page'),
     path("robots.txt", TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
 ]
 
