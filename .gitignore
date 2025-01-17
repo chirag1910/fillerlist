@@ -140,3 +140,9 @@ GitHub.sublime-settings
 fillerlist/updater.py
 fillerlist/analytics_data.json
 fillerlist/fillerlist_data.json
+
+# Static files
+staticfiles/
+
+# Data files
+fillerlist_data.json
