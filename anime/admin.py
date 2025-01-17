@@ -1,5 +1,5 @@
 from django.contrib import admin
-from anime_list.models import Anime, Episode
+from anime.models import Anime, Episode
 
 class EpisodeInline(admin.TabularInline):
     model = Episode

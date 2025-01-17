@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from . import api
+from anime import api as anime_api
 from . import analytics_api
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -8,7 +8,7 @@ from json import dumps
 
 def home_page(request):
     if request.method == 'GET':
-        context = api.random()
+        context = anime_api.random()
         context.update({
             'show_large_navbar': True,
             'is_home_page': True,
@@ -27,7 +27,7 @@ def search_page(request):
         if not keyword:
             return error_page(request)
         else:
-            context = api.search(keyword)
+            context = anime_api.search(keyword)
             context.update({
                 'is_search_page': True,
                 'anime_json': dumps(context['data'])
@@ -53,7 +53,7 @@ def anime_page(request, id):
     if request.method == 'GET':
         analytics_api.add(request)
 
-        context = api.anime(id)
+        context = anime_api.anime(id)
         context.update({
             'anime_json': dumps(context['data'])
         })
@@ -73,7 +73,7 @@ def update_file(request):
         key = request.POST.get('key')
         if key == "tX3rO7qO6vN4oP6":
             if request.FILES:
-                api.update_data(request.FILES['file'])
+                anime_api.update_data(request.FILES['file'])
                 return JsonResponse({"status": "ok", "message": "File updated successfully"})
 
             return JsonResponse({"status": "error", "error": "Some error occurred"})

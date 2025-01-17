@@ -1,4 +1,4 @@
-from anime_list.models import Anime, Episode
+from anime.models import Anime, Episode
 import json
 
 

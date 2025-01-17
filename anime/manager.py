@@ -4,7 +4,7 @@ from fuzzywuzzy import fuzz
 class AnimeManager(models.Manager):
     def get_random(self, count=10):        
         return self.all().order_by('?')[:count]
-    
+
     def search(self, keyword):
         result = []
 

@@ -1,5 +1,5 @@
 from django.db import models
-from anime_list.manager import AnimeManager
+from anime.manager import AnimeManager
 
 class Anime(models.Model):
     id = models.fields.BigAutoField(primary_key=True)
