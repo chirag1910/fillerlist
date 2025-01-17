@@ -13,19 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import path, include, re_path
+
+from django.urls import re_path
 from . import views
-from django.conf.urls import handler404, handler500
-from django.views.generic.base import TemplateView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('anime.urls')),
-    path('', include('analytics.urls')),
-    re_path(r'^404/?$', views.error_page, name='error_page'),
-    re_path(r'^robots\.txt/?$', TemplateView.as_view(template_name="robots.txt", content_type="text/plain")),
+    re_path(r'^analytics/?$', views.analytics_page, name='analytics_page'),
 ]
-
-handler404 = views.error_page
-handler500 = views.error_page
