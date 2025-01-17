@@ -45,7 +45,6 @@ class Episode(models.Model):
 
     class Meta:
         ordering = ["number"]
-        unique_together = ["number", "anime"]
 
     def to_dict(self):
         return {

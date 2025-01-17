@@ -32,7 +32,7 @@ def update_data(file):
                 number=episode_data["number"],
                 title=episode_data["name"],
                 type=episode_data["type"].split(" ")[0].lower(),
-                air_date=episode_data["air_date"],
+                air_date=episode_data["air_date"] or None,
                 anime=anime
             )
 
