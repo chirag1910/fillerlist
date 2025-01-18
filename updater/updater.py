@@ -1,10 +1,10 @@
 import json
-from os import path
+import os
 from requests import get, post
 from bs4 import BeautifulSoup
 
 try:
-    CURR_PATH = path.dirname(path.abspath(__file__))
+    CURR_PATH = os.path.dirname(os.path.abspath(__file__))
 
     data_string = {
         "source": "https://www.animefillerlist.com/",
@@ -41,21 +41,20 @@ try:
 
         print(anime["id"], anime["title"])
 
-    with open(path.join(CURR_PATH, "fillerlist_data.json"), "w") as f:
+    with open(os.path.join(CURR_PATH, "fillerlist_data.json"), "w") as f:
         f.write(json.dumps(data_string, indent=4))
 
     print("Done! Now uploading")
 
 except Exception as e:
-    exit(400)
+    exit(1)
 
-files = {'file': open(
-    path.join(CURR_PATH, "fillerlist_data.json"), 'rb')}
-params = {"key": "tX3rO7qO6vN4oP6"}
+files = {'file': open(os.path.join(CURR_PATH, "fillerlist_data.json"), 'rb')}
+params = {"key": os.getenv('FILE_UPLOAD_SECRET_KEY')}
 
 try:
-    # URL = "https://fillerlist.onrender.com/update/"
-    URL = "http://localhost:8000/update/"
+    URL = "https://fillerlist.onrender.com/update/"
+    # URL = "http://localhost:8000/update/"
 
     response = post(URL, files=files, data=params).json()
 
