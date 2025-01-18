@@ -4,6 +4,7 @@ from analytics import api as analytics_api
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from json import dumps
+from django.conf import settings
 
 
 def home_page(request):
@@ -67,7 +68,8 @@ def anime_page(request, id):
 def update_file(request):
     if request.method == 'POST':
         key = request.POST.get('key')
-        if key == "tX3rO7qO6vN4oP6":
+
+        if settings.FILE_UPLOAD_SECRET_KEY and key == settings.FILE_UPLOAD_SECRET_KEY:
             if request.FILES:
                 anime_api.update_data(request.FILES['file'])
                 return JsonResponse({"status": "ok", "message": "File updated successfully"})

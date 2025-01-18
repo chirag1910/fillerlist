@@ -20,7 +20,9 @@ def update_data(file):
 
     Anime.objects.bulk_create(animes_to_create)
 
-    title_object_map = {anime.title: anime for anime in animes_to_create}
+    # Not using animes_to_create itself because they won't have primary key,
+    # due to which they will be treated as unsaved object.
+    title_object_map = {anime.title: anime for anime in Anime.objects.all()}
 
     episode_to_create = []
 
