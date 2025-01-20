@@ -2,70 +2,112 @@ import json
 import os
 from requests import get, post
 from bs4 import BeautifulSoup
+import asyncio
+import aiohttp
+import sys
 
-try:
-    CURR_PATH = os.path.dirname(os.path.abspath(__file__))
 
-    data_string = {
-        "source": "https://www.animefillerlist.com/",
-        "anime": []
-    }
+class Updater:
+    def __init__(self):
+        self.CURR_PATH = os.path.dirname(os.path.abspath(__file__))
+        self.OUTPUT_FILE_NAME = "fillerlist_data.json"
+        self.BASE_SCRAPE_URL = "https://www.animefillerlist.com"
+        self.SHOWS_SCRAPE_URL = "https://www.animefillerlist.com/shows"
+        self.UPLOAD_URL = "https://fillerlist.onrender.com/update/"
+        # self.UPLOAD_URL = "http://localhost:8000/update/"
+        self.UPLOAD_SECRET_KEY = os.getenv('FILE_UPLOAD_SECRET_KEY')
+        self.data = {}
 
-    anime_list = BeautifulSoup(get(
-        "https://www.animefillerlist.com/shows").text, "html.parser").select(".Group a")
-    anime_id = 1
 
-    # anime names
-    for anime in anime_list:
-        source_link = f"https://www.animefillerlist.com{anime.get('href')}"
-        data_string["anime"].append(
-            {"id": anime_id, "title": anime.text, "source_link": source_link})
-        anime_id += 1
+    @staticmethod
+    def fetch_anime_list(source):
+        soup = BeautifulSoup(get(source).text, "html.parser")
 
-    # anime data
-    for anime in data_string["anime"]:
-        soup = BeautifulSoup(get(anime["source_link"]).text, "html.parser")
+        anime_list = soup.select(".Group a")
 
-        anime["description"] = soup.select(".Description p")[0].text
-        anime["episodes"] = []
+        return [{
+            "title": anime.text,
+            "source": anime.get('href')
+        } for anime in anime_list]
+
+
+    @staticmethod
+    async def fetch_anime_detail(session, source):
+        response = await session.request('GET', url=source)
+        data = await response.text()
+        
+        soup = BeautifulSoup(data, "html.parser")
+
+        detail = {}
+        detail["description"] = soup.select(".Description p")[0].text
 
         episode_table_rows = soup.select("tbody tr")
-        for row in episode_table_rows:
-            ep_info = {
-                "number": row.find("td", {'class': 'Number'}).text,
-                "name": row.find("td", {'class': 'Title'}).text,
-                "type": row.find("td", {'class': 'Type'}).text,
-                "air_date": row.find("td", {'class': 'Date'}).text,
-            }
-            anime["episodes"].append(ep_info)
 
-        print(anime["id"], anime["title"])
+        detail["episodes"] = [{
+            "number": row.find("td", {'class': 'Number'}).text,
+            "name": row.find("td", {'class': 'Title'}).text,
+            "type": row.find("td", {'class': 'Type'}).text,
+            "air_date": row.find("td", {'class': 'Date'}).text,
+        } for row in episode_table_rows]
 
-    with open(os.path.join(CURR_PATH, "fillerlist_data.json"), "w") as f:
-        f.write(json.dumps(data_string, indent=4))
+        return detail
 
-    print("Done! Now uploading")
 
-except Exception as e:
-    exit(1)
+    def save(self):
+        with open(os.path.join(self.CURR_PATH, self.OUTPUT_FILE_NAME), "w") as f:
+            f.write(json.dumps(self.data, indent=4))
+    
 
-files = {'file': open(os.path.join(CURR_PATH, "fillerlist_data.json"), 'rb')}
-params = {"key": os.getenv('FILE_UPLOAD_SECRET_KEY')}
+    def upload(self):
+        files = {'file': open(os.path.join(self.CURR_PATH, self.OUTPUT_FILE_NAME),'rb')}
+        params = {"key": self.UPLOAD_SECRET_KEY}
 
-try:
-    URL = "https://fillerlist.onrender.com/update/"
-    # URL = "http://localhost:8000/update/"
+        try:
+            response = post(self.UPLOAD_URL, files=files, data=params).json()
 
-    response = post(URL, files=files, data=params).json()
+            if response["status"] == "ok":
+                return True
+            
+            return False
+        except Exception as e:
+            print(e)
+            return False
 
-    if response["status"] == "ok":
-        print("File uploaded successfully")
-        exit(0)
 
-    raise Exception("File upload failed")
+    async def runner(self):
+        print("[INFO] Started")
 
-except Exception as e:
-    print(e)
-    print("Some error occurred")
-    exit(1)
+        self.data["anime"] = self.fetch_anime_list(self.SHOWS_SCRAPE_URL)
 
+        print("[INFO] Fetching list successful!")
+
+        async with aiohttp.ClientSession() as session:
+            tasks = [
+                self.fetch_anime_detail(session, self.BASE_SCRAPE_URL + anime["source"]) \
+                    for anime in self.data["anime"]
+            ]
+
+            results = await asyncio.gather(*tasks, return_exceptions=True)
+
+            for anime, detail in zip(self.data["anime"], results):
+                anime.update(detail)
+        
+        print("[INFO] Fetching details successful!")
+        
+        self.save()
+
+        print("[INFO] Scrapping successful!")
+
+        if self.upload():
+            print("[INFO] Uploading successful!")
+            exit(0)
+        else:
+            print("[ERROR] Uploading failed!")
+            exit(1)
+
+
+if __name__ == "__main__":
+    if sys.platform == "win32":
+        asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
+
+    asyncio.run(Updater().runner())

@@ -146,3 +146,6 @@ staticfiles/
 
 # Data files
 fillerlist_data.json
+
+# local runner files
+run.bat
