@@ -66,18 +66,22 @@ def anime_page(request, id):
 
 @csrf_exempt
 def update_file(request):
-    print("running")
-    try:
-        if request.method == 'POST':
-            key = request.POST.get('key')
+    if request.method == 'POST':
+        key = request.POST.get('key')
 
-            if settings.FILE_UPLOAD_SECRET_KEY and key == settings.FILE_UPLOAD_SECRET_KEY:
-                if request.FILES:
-                    anime_api.update_data(request.FILES['file'])
-                    return JsonResponse({"status": "ok", "message": "File updated successfully"})
+        if not key:
+            return JsonResponse({"status": "error", "error": "Who am I?"})
 
-                return JsonResponse({"status": "error", "error": "Some error occurred"})
+        if key != settings.FILE_UPLOAD_SECRET_KEY:
+            return JsonResponse({"status": "error", "error": "Who are you?"})
 
-        return redirect("/404")
-    except Exception as e:
-        print(e)
+        if not request.FILES:
+            return JsonResponse({"status": "error", "error": "Where are you?"})
+        
+        try:
+            anime_api.update_data(request.FILES['file'])
+            return JsonResponse({"status": "ok", "message": "Data updated successfully"})
+        except Exception as e:
+            return JsonResponse({"status": "error", "error": "What are you? " + e})
+
+    return JsonResponse({"status": "error", "error": "Why are you?"})
