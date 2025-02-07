@@ -3,6 +3,7 @@ from anime.manager import AnimeManager
 
 class Anime(models.Model):
     id = models.fields.BigAutoField(primary_key=True)
+    slug = models.fields.SlugField(unique=True, max_length=500)
     title = models.fields.CharField(max_length=500)
     description = models.TextField()
 
@@ -16,6 +17,7 @@ class Anime(models.Model):
         anime = {
             'id': self.id,
             'title': self.title,
+            'slug': self.slug,
             'description': self.description,
             'episode_count': self.episode_count
         }

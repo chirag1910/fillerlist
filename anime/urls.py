@@ -20,7 +20,6 @@ from . import views
 urlpatterns = [
     re_path(r'^/?$', views.home_page, name='home_page'),
     re_path(r'^search/?$', views.search_page, name='search_page'),
-    re_path(r'^id/(?P<id>[^/]+)/?$', views.anime_page, name='anime_page'),
+    re_path(r'^anime/(?P<slug>[^/]+)/?$', views.anime_page, name='anime_page'),
     re_path(r'^about/?$', views.about_page, name='about_page'),
-    re_path(r'^update/?$', views.update_file, name='update_page'),
 ]

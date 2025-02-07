@@ -11,8 +11,8 @@ class EpisodeInline(admin.TabularInline):
 
 @admin.register(Anime)
 class AnimeAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'episode_count')
-    search_fields = ('title',)
+    list_display = ('id', 'title', 'slug', 'episode_count')
+    search_fields = ('title', 'slug',)
     inlines = [EpisodeInline]
 
 @admin.register(Episode)

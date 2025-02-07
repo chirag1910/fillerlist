@@ -105,6 +105,7 @@ class Command(BaseCommand):
         for anime_data in data["anime"]:
             anime = Anime(
                 title=anime_data["title"],
+                slug=list(filter(None, anime_data["source"].split("/")))[-1],
                 description=anime_data["description"]
             )
 

@@ -15,7 +15,7 @@
     <h1 class="page-title">Random Picks</h1>
     <div class="cards">
         {% for anime in data %}
-        <a href="/id/{{anime.id}}">
+        <a href="/anime/{{anime.slug}}">
             <div id="anime-card-{{anime.id}}" class="anime-card">
                 <img class="anime-card-image" src="https://s4.anilist.co/file/anilistcdn/character/large/default.jpg"
                     alt="{{anime.title|slice:':15'}} poster">
